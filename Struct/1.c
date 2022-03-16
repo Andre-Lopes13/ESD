@@ -24,7 +24,7 @@ int verificaRecorde(Recordes *recordes, int codigo, Tempo novoTempo);
 void ordenaRecorde(Recordes *recordes, int posicaoNovorecorde, Tempo novoTempo);
 int verificaRecorde(Recordes *recordes, int codigo, Tempo novoTempo){
     int i;
-    for(i = 10; i >= 0 ; i--){
+    for(i = 10; i < TAM ; i++){
         if(recordes[i].codigo == codigo){
             if(recordes[i].recorde.minutos > novoTempo.minutos ||
             (recordes[i].recorde.minutos == novoTempo.minutos && recordes[i].recorde.segundos > novoTempo.segundos)){
@@ -35,18 +35,14 @@ int verificaRecorde(Recordes *recordes, int codigo, Tempo novoTempo){
     }
     return 0;
 }
-void ordenaRecorde(Recordes *recordes, int posicaoNovorecorde, Tempo novoTempo){
-    // insertion sort
-    int i, j;
-    Recordes aux;
-    for(i = posicaoNovorecorde; i > 0; i--){
-        if(recordes[i].recorde.minutos < recordes[i-1].recorde.minutos ||
-        (recordes[i].recorde.minutos == recordes[i-1].recorde.minutos && recordes[i].recorde.segundos < recordes[i-1].recorde.segundos)){
-            aux = recordes[i];
-            for(j = i; j < posicaoNovorecorde; j++){
-                recordes[j] = recordes[j+1];
-            }
-            recordes[posicaoNovorecorde] = aux;
-        }
+void inserirValorNovoOrdenado( Recordes *recordes, int posicaoNovorecorde, Tempo novoTempo){
+    int i;
+    for(i = posicaoNovorecorde; i < TAM; i++){
+        recordes[i].codigo = recordes[i+1].codigo;
+        recordes[i].recorde.minutos = recordes[i+1].recorde.minutos;
+        recordes[i].recorde.segundos = recordes[i+1].recorde.segundos;
     }
+    recordes[i].codigo = -1;
+    recordes[i].recorde.minutos = -1;
+    recordes[i].recorde.segundos = -1;
 }
