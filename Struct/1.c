@@ -37,12 +37,11 @@ int verificaRecorde(Recordes *recordes, int codigo, Tempo novoTempo){
 }
 void inserirValorNovoOrdenado( Recordes *recordes, int posicaoNovorecorde, Tempo novoTempo){
     int i;
-    for(i = posicaoNovorecorde; i < TAM; i++){
-        recordes[i].codigo = recordes[i+1].codigo;
-        recordes[i].recorde.minutos = recordes[i+1].recorde.minutos;
-        recordes[i].recorde.segundos = recordes[i+1].recorde.segundos;
+    Recordes aux;
+    for(i = TAM; i > posicaoNovorecorde ; i--){
+        aux = recordes[i-1];
+        recordes[i] = aux;
     }
-    recordes[i].codigo = -1;
-    recordes[i].recorde.minutos = -1;
-    recordes[i].recorde.segundos = -1;
+    recordes[posicaoNovorecorde].recorde = novoTempo;
+
 }
