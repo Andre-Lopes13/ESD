@@ -65,7 +65,7 @@ void ordenar(tModalidade *recordes, int n){
     }
 }
 
-    int preenche(tModalidade *recordes, int n)
+int preenche(tModalidade *recordes, int n)
 {
     int i;
     char controle;
