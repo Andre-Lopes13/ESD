@@ -100,7 +100,7 @@ void insereLista(Lista *l, int valor)
     }
     if (!l->ehClassificado && !l->ehComRepeticao)
     {
-        void insereListaNaoClassificadaSemRepeticao(l, valor);
+        insereListaNaoClassificadaSemRepeticao(l, valor);
         return;
     }
 }
