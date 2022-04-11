@@ -5,7 +5,7 @@
 void preencheVetor(int *v , int n);
 int produtoInterno(int *v1, int *v2, int n);
 void imprimeVetor(int *v,int n);
-int main(){
+void main(){
     int n, v1[100], v2[100];
     srand(time(NULL));
     printf("Digite o tamanho dos vetores: ");
@@ -17,7 +17,6 @@ int main(){
     printf("Vetor 2: ");
     imprimeVetor(v2, n);
     printf("O produto interno dos vetores eh: %d\n", produtoInterno(v1, v2, n));
-    return 0;
 }
 void imprimeVetor(int *v, int n){
     int i;
