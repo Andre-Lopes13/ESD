@@ -11,6 +11,8 @@ typedef struct lista
 Lista criaLista(int capacidade, int ehClassificado, int ehComRepeticao);
 // funcao buscar valor na lista
 int buscaValor(Lista l, int valor);
+// imprime valores da lista
+void imprimeLista(Lista l);
 // funcao insere valor na lista de 4 formas
 void insereLista(Lista *l, int valor);
 // classificada com repetição

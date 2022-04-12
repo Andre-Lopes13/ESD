@@ -3,17 +3,29 @@
 #include "lista.h"
 void main()
 {
-    Lista l = criaLista(10, 1, 1);
+    Lista l;
+    //menu cria lista;
+    int comRep, ehClass, capacidade;
+    printf("Digite a capacidade da lista: ");
+    scanf("%d", &capacidade);
+    printf("Digite 1 para lista com repeticao e 0 para lista sem repeticao: ");
+    scanf("%d", &comRep);
+    printf("Digite 1 para lista classificada e 0 para lista nao classificada: ");
+    scanf("%d", &ehClass);
+    l = criaLista(capacidade, ehClass, comRep);
     // menu
     int opcao, valor;
     do
     {
         printf("1 - Inserir\n");
         printf("2 - Buscar\n");
-        printf("3 - Sair\n");
+        printf("3 - imprimir lista\n");
+        printf("-1 - Sair\n");
         scanf("%d", &opcao);
         switch (opcao)
         {
+        case -1:
+            break;
         case 1:
             printf("Valor: ");
             scanf("%d", &valor);
@@ -29,9 +41,10 @@ void main()
                 printf("Valor encontrado na posicao %d\n", pos);
             break;
         case 3:
+            imprimeLista(l);
             break;
         default:
             printf("Opcao invalida\n");
         }
-    } while (opcao != 3);
+    } while (opcao != -1);
 }

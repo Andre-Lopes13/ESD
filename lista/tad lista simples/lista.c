@@ -104,3 +104,9 @@ void insereLista(Lista *l, int valor)
         return;
     }
 }
+void imprimeLista(Lista l){
+    for(int i = 0; i < l.qtOcupada; i++){
+        printf("%d ", l.info[i]);
+    }
+    printf("\n");
+}
