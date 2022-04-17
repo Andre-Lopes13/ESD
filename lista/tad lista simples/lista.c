@@ -104,9 +104,151 @@ void insereLista(Lista *l, int valor)
         return;
     }
 }
-void imprimeLista(Lista l){
-    for(int i = 0; i < l.qtOcupada; i++){
+void imprimeLista(Lista l)
+{
+    for (int i = 0; i < l.qtOcupada; i++)
+    {
         printf("%d ", l.info[i]);
     }
     printf("\n");
+}
+void exclusaoOpcoes(Lista *l, int valor)
+{
+    int opc;
+    printf("1 - Excluir todos os valores iguais a %d \n", valor);
+    printf("2 - Excluir primeira ocorrencia de %d \n", valor);
+    printf("3 - Excluir aleatoriamente com busca binaria \n");
+    scanf("%d", &opc);
+    do
+    {
+        switch (opc)
+        {
+        case 1:
+            excluiTodasOcorrencias(l, valor);
+            break;
+        case 2:
+            excluiPrimeiraOcorrencia(l, valor);
+            break;
+        case 3:
+            excluiPrimeiraOcorrenciaBinaria(l, valor);
+            break;
+        default:
+            printf("Opcao invalida\n");
+            break;
+        }
+    } while (opc <= 1 && opc >= 3);
+}
+void excluiPrimeiraOcorrencia(Lista *l, int valor)
+{
+    if (l->ehClassificado)
+    {
+        for (int i = 0; i < l->qtOcupada; i++)
+        {
+            if (l->info[i] == valor)
+            {
+                for (; i <= l->qtOcupada; i++)
+                {
+                    l->info[i] = l->info[i + 1];
+                }
+                l->qtOcupada--;
+                break;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < l->qtOcupada; i++)
+        {
+            if (l->info[i] == valor)
+            {
+                l->info[i] = l->info[l->qtOcupada];
+                l->qtOcupada--;
+                break;
+            }
+        }
+    }
+}
+void excluiTodasOcorrencias(Lista *l, int valor)
+{
+    if (l->ehClassificado)
+    {
+        for (int i = 0; i < l->qtOcupada; i++)
+        {
+            if (l->info[i] == valor)
+            {
+                for (; i <= l->qtOcupada; i++)
+                {
+                    l->info[i] = l->info[i + 1];
+                }
+                l->qtOcupada--;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < l->qtOcupada; i++)
+        {
+            if (l->info[i] == valor)
+            {
+                while (l->qtOcupada >= i && l->info[l->qtOcupada-1] == valor)
+                {
+                    l->qtOcupada--;
+                }
+                l->info[i] = l->info[l->qtOcupada];
+                l->qtOcupada--;
+            }
+        }
+    }
+}
+void excluiPrimeiraOcorrenciaBinaria(Lista *l, int valor)
+{
+    // busca binaria
+    int i = 0;
+    int j = l->qtOcupada - 1;
+    int k;
+    if (l->ehClassificado)
+    {
+        while (i <= j)
+        {
+            k = (i + j) / 2;
+            if (l->info[k] == valor)
+            {
+                for (; k <= l->qtOcupada; k++)
+                {
+                    l->info[k] = l->info[k + 1];
+                }
+                l->qtOcupada--;
+                break;
+            }
+            if (l->info[k] < valor)
+            {
+                i = k + 1;
+            }
+            else
+            {
+                j = k - 1;
+            }
+        }
+    }
+    else
+    {
+        while (i <= j)
+        {
+            k = (i + j) / 2;
+            if (l->info[k] == valor)
+            {
+                l->info[k] = l->info[l->qtOcupada];
+                l->qtOcupada--;
+                break;
+            }
+            if (l->info[k] < valor)
+            {
+                i = k + 1;
+            }
+            else
+            {
+                j = k - 1;
+            }
+        }
+    }
 }

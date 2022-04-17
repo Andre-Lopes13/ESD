@@ -4,7 +4,7 @@
 void main()
 {
     Lista l;
-    //menu cria lista;
+    // menu cria lista;
     int comRep, ehClass, capacidade;
     printf("Digite a capacidade da lista: ");
     scanf("%d", &capacidade);
@@ -20,6 +20,7 @@ void main()
         printf("1 - Inserir\n");
         printf("2 - Buscar\n");
         printf("3 - imprimir lista\n");
+        printf("4 - excluir\n");
         printf("-1 - Sair\n");
         scanf("%d", &opcao);
         switch (opcao)
@@ -42,6 +43,11 @@ void main()
             break;
         case 3:
             imprimeLista(l);
+            break;
+        case 4:
+            printf("Valor: ");
+            scanf("%d", &valor);
+            exclusaoOpcoes(&l, valor);
             break;
         default:
             printf("Opcao invalida\n");

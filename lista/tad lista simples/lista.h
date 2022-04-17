@@ -23,3 +23,11 @@ void insereListaClassificadaSemRepeticao(Lista *l, int valor);
 void insereListaNaoClassificadaComRepeticao(Lista *l, int valor);
 // nao classificada sem repetição
 void insereListaNaoClassificadaSemRepeticao(Lista *l, int valor);
+// menu exclusão
+void exclusaoOpcoes(Lista *l, int valor);
+// exclui valor da lista primeira ocorrência
+void excluiPrimeiraOcorrencia(Lista *l, int valor);
+// exclui valor da lista todas as ocorrências
+void excluiTodasOcorrencias(Lista *l, int valor);
+// exclui primeira ocorrencia busca binária;
+void excluiPrimeiraOcorrenciaBinaria(Lista *l, int valor);
