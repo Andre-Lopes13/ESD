@@ -1,77 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pilhaencadeada.h"
-struct tipoitem
+typedef struct bloco
 {
-    int valor;
-};
-typedef struct celula_str
+    int info;
+    struct bloco *prox;
+} no;
+typedef struct pilha
 {
-    TipoItem Item;
-    struct celula_str *Prox;
-} Celula;
-struct tipopilha
+    no *inicio;
+} TPilha;
+TPilha *cria()
 {
-    Celula *Fundo, Topo;
-    int Tamanho;
-};
-TipoPilha *inicializaPilha()
-{
-    TipoPilha *pilha = (TipoPilha *)malloc(sizeof(TipoPilha));
-    return pilha;
+    TPilha *p;
+    p = (TPilha *)malloc(sizeof(TPilha));
+    p->inicio = NULL;
+    return p;
 }
-void fPVazia(TipoPilha *Pilha)
+void insere(TPilha *p, int elemento)
 {
-    Pilha->Topo = (Celula *)malloc(sizeof(Celula));
-    Pilha->Fundo = Pilha->Topo;
-    Pilha->Topo->Prox = NULL;
-    Pilha->Tamanho = 0;
-}
-int vazia(TipoPilha *Pilha)
-{
-    return (Pilha->Topo == Pilha->Fundo);
-}
-void empilha(TipoItem *x, TipoPilha *Pilha)
-{
-    Celula *Aux;
-    Aux = (Celula *)malloc(sizeof(Celula));
-    Pilha->Topo->Item = *x;
-    Aux->Prox = Pilha->Topo;
-    Pilha->Topo = Aux;
-    Pilha->Tamanho++;
-}
-void desempilha(TipoPilha *Pilha, TipoItem *Item)
-{
-    Celula *q;
-    if (Vazia(Pilha))
+    no *novo = (no *)malloc(sizeof(no));
+    novo->info = elemento;
+    novo->prox = NULL;
+    if (p->inicio == NULL)
     {
-        printf("Erro: lista vazia \n");
-        return;
+        p->inicio = novo;
     }
-    q = Pilha->Topo;
-    Pilha->Topo = q->Prox;
-    *Item = q->Prox->Item;
-    free(q);
-    Pilha->Tamanho--;
-}
-int tamanho(TipoPilha *Pilha)
-{
-    return (Pilha->Tamanho);
-}
-void imprime(TipoPilha *pilha)
-{
-    Celula *Aux;
-    Aux = pilha->Topo->Prox;
-    printf("Imprime Pilha Encadeada: \n");
-    while (Aux != NULL)
+    else
     {
-        printf("%d\n", Aux->Item.valor);
-        Aux = Aux->Prox;
+        novo->prox = p->inicio;
+        p->inicio = novo;
     }
 }
-TipoItem *inicializaTipoItem(int n)
+void removeNo(TPilha *p)
 {
-    TipoItem *item = (TipoItem *)malloc(sizeof(TipoItem));
-    item->valor = n;
-    return item;
+    no *aux = p->inicio;
+    p->inicio = aux->prox;
+    free(aux);
+}
+void imprime(TPilha *p)
+{
+    no *aux = p->inicio;
+    while (aux != NULL)
+    {
+        printf("%d ", aux->info);
+        aux = aux->prox;
+    }
+    printf("\n");
 }

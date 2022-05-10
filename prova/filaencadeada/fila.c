@@ -3,158 +3,52 @@
 #include <stdlib.h>
 typedef struct bloco
 {
-    elem info;
+    int info;
     struct bloco *prox;
 } no;
-struct fila
+typedef struct fila
 {
-    no *inicio, *fim;
-    int tam;
-};
-Fila *Cria(int *flagErro)
+    no *inicio;
+    no *fim;
+} Fila;
+Fila *cria()
 {
-    Fila *F = (Fila *)malloc(sizeof(Fila));
-    if (F == NULL)
+    Fila *f;
+    f = (Fila *)malloc(sizeof(Fila));
+    f->inicio = NULL;
+    f->fim = NULL;
+    return f;
+}
+void insere(Fila *f, int elemento)
+{
+    no *novo = (no *)malloc(sizeof(no));
+    novo->info = elemento;
+    novo->prox = NULL;
+    printf("%d", novo->info);
+    if (f->inicio == NULL)
     {
-        *flagErro = 1; // ERRO_MEMORIA_INSUFICIENTE
-        return F;
+        f->inicio = novo;
+        f->fim = novo;
     }
     else
     {
-        *flagErro = 0; // SUCESSO
-        F->inicio = NULL;
-        F->fim = NULL;
-        F->total = 0;
-        return F;
+        f->fim->prox = novo;
+        f->fim = novo;
     }
 }
-void Esvazia(Fila *F, int *flagErro)
+void removeNo(Fila *f)
 {
-    no *ndel, *nextno;
-    if (F != NULL)
-    {
-        nextno = F->inicio;
-        while (nextno != NULL)
-        {
-            ndel = nextno;
-            nextno = nextno->prox;
-            free(ndel);
-        }
-        F->inicio = NULL;
-        F->fim = NULL;
-        F->total = 0;
-        *flagErro = 0; // SUCESSO
-    }
-    else
-        *flagErro = 1; // ERRO_PONTEIRO_NULO
+    no *aux = f->inicio;
+    f->inicio = aux->prox;
+    free(aux);
 }
-void Destroi(Fila *F, int *flagErro)
+void imprime(Fila *f)
 {
-    if (F != NULL)
+    no *aux = f->inicio;
+    while (aux != NULL)
     {
-        Esvazia(F, flagErro);
-        free(F); // SUCESSO
-        *flagErro = 0;
+        printf("%d ", aux->info);
+        aux = aux->prox;
     }
-    else
-        *flagErro = 1; // ERRO_PONTEIRO_NULO
-}
-void Insere(Fila *F, elem X, int *erro)
-{
-    no *p = (no *)malloc(sizeof(no));
-    if (F == NULL)
-        *erro = 1;
-    else
-    {
-        if (p == NULL)
-            *erro = 1;
-        else
-        {
-            *erro = 0;
-            F->total++;
-            p->info = X;
-            p->prox = NULL;
-            if (F->inicio == NULL) // Se é o primeiro, inicio aponta para o nó
-                F->inicio = p;
-            else
-                F->fim->prox = p; // senão ajusta o campo prox do último nó
-            F->fim = p;           // fim aponta para o nó
-        }
-    }
-}
-void Remove(Fila *F, elem *X, int *erro)
-{
-    no *p;
-    if (!Vazia(F, erro))
-    {
-        if (*erro == 0)
-        {
-            *erro = 0; // desnecessário, pois a função Vazia já retorna um valor para erro
-            F->total--;
-            p = F->inicio;
-            *X = p->info;
-            F->inicio = F->inicio->prox;
-            if (F->inicio == NULL) // Se ficou vazia ajusta fim
-                F->fim = NULL;
-            free(p);
-        }
-    }
-    else
-        *erro = 1;
-}
-void Inicio(Fila *F, elem *X, int *erro)
-{
-    if (!Vazia(F, erro))
-    {
-        if (*erro == 0)
-        {
-            *erro = 0;
-            ; // desnecessário, pois a função Vazia já retorna um valor para erro
-            *X = F->inicio->info;
-        }
-        else
-            *erro = 1;
-    }
-}
-int Vazia(Fila *F, int *flagErro)
-{
-    if (F != NULL)
-    {
-        *flagErro = 0; // SUCESSO
-        if (F->total == 0)
-            return 1;
-        else
-            return 0;
-    }
-    else
-    {
-        *flagErro = 1; // ERRO_PONTEIRO_NULO
-        return 1;
-    }
-}
-int Cheia(Fila *F, int *flagErro)
-{
-    if (F != NULL)
-    {
-        *flagErro = 0; // SUCESSO
-        return 0;
-    }
-    else
-    {
-        *flagErro = 1; // ERRO_PONTEIRO_NULO
-        return 0;
-    }
-}
-int Tamanho(Fila *F, int *flagErro)
-{
-    if (F != NULL)
-    {
-        *flagErro = 0; // SUCESSO
-        return F->total;
-    }
-    else
-    {
-        *flagErro = 1; // ERRO_PONTEIRO_NULO
-        return -1;
-    }
+    printf("\n");
 }
